@@ -119,16 +119,18 @@ if __name__ == "__main__":
     path_bkg = "../backgrounds/"
     bkgs = get_background_imgs(path_bkg)
     
-    stages = ["rdkit*", "rdkit*-aug", "rdkit*-aug-bkg", "rdkit*-aug-bkg-deg"]
+    stages = ["rdkitp-aug-bkg-deg"]
+    
+    # stages = ["rdkitp", "rdkitp-aug", "rdkitp-aug-bkg", "rdkitp-aug-bkg-deg"]
     for stage in stages:
-        print "Building synthetic data images for {} SMILES dataset".format(stage)
+        print("Building synthetic data images for {} SMILES dataset".format(stage))
         for d in ["train", "val", "test"]:
-            print " > Building {} set".format(d)
+            print(" > Building {} set".format(d))
             
             # Make image directory
             img_dir = "{}/{}_images".format(stage, d)
             if not os.path.isdir(img_dir):
-                os.mkdir(img_dir)
+                os.makedirs(img_dir)
 
             # Collect SMILES data
             smiles_file = "{}/{}.formulas.txt".format(stage, d)
@@ -137,5 +139,4 @@ if __name__ == "__main__":
             # Build dataset
             for idx, s in enumerate(smiles):
                 smiles_to_synthetic(s, idx, img_dir, stage)
-        print "   - Done.\n"
-
+        print("   - Done.\n")
